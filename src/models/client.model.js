@@ -64,7 +64,23 @@ const ClientModel = {
       `);
       return false;
     }
-  }
+  },
+  async delete(id) {
+    try {
+      const database = await databaseConnection();
+
+      const query = "DELETE FROM clients WHERE id = ?";
+      await database.execute(query, [id]);
+
+      return true;
+    } catch (error) {
+      console.log(`
+        ❌ Failed to delete client.
+        ${error}
+      `);
+      return false;
+    }
+  },
 }
 
 module.exports = ClientModel;

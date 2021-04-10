@@ -44,6 +44,19 @@ const ClientController = {
     res.status(200).json({
       message: 'User updated!'
     });
+  },
+  async remove(req, res) {
+    const { id } = req.params;
+
+    const deleted = await clientModel.delete(id);
+
+    if (!deleted) return res.status(500).json({
+      message: "Can not delete client, try again!"
+    });
+
+    res.status(200).json({
+      message: 'User deleted!'
+    });
   }
 }
 
