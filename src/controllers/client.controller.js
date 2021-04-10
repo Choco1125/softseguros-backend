@@ -1,3 +1,4 @@
+const { update } = require('../models/client.model');
 const clientModel = require('../models/client.model');
 
 const ClientController = {
@@ -28,6 +29,20 @@ const ClientController = {
 
     res.status(201).json({
       message: 'User created!'
+    });
+  },
+  async update(req, res) {
+    const { fullname, email, birthdate } = req.body;
+    const { id } = req.params;
+
+    const updated = await clientModel.update(id, fullname, email, birthdate);
+
+    if (!updated) return res.status(500).json({
+      message: "Can not update client, try again!"
+    });
+
+    res.status(200).json({
+      message: 'User updated!'
     });
   }
 }

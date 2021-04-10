@@ -48,6 +48,22 @@ const ClientModel = {
       `);
       return false;
     }
+  },
+  async update(id, fullname, email, birthdate) {
+    try {
+      const database = await databaseConnection();
+
+      const query = "UPDATE clients SET fullname = ?,email = ?,birthdate = ? WHERE id = ?";
+      await database.execute(query, [fullname, email, birthdate, id]);
+
+      return true;
+    } catch (error) {
+      console.log(`
+        ❌ Failed to update client.
+        ${error}
+      `);
+      return false;
+    }
   }
 }
 
