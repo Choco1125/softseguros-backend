@@ -1,17 +1,17 @@
 const databaseConnection = require('./../databases/connection');
 
 const ClientModel = {
-  async findById(id) {
+  async findByDocuement(document) {
     try {
       const database = await databaseConnection();
 
-      const query = "SELECT * FROM clients WHERE id = ?";
-      const [rows] = await database.execute(query, [id]);
+      const query = "SELECT * FROM clients WHERE document = ?";
+      const [rows] = await database.execute(query, [document]);
 
       return rows;
     } catch (error) {
       console.log(`
-        ❌ Failed to find client ${id}.
+        ❌ Failed to find client ${document}.
         ${error}
       `);
       return null;
@@ -33,12 +33,12 @@ const ClientModel = {
       return null;
     }
   },
-  async save(fullname, email, birthdate) {
+  async save(document, fullname, email, birthdate) {
     try {
       const database = await databaseConnection();
 
-      const query = "INSERT INTO clients (fullname,email,birthdate) VALUES (?,?,?)";
-      await database.execute(query, [fullname, email, birthdate]);
+      const query = "INSERT INTO clients (document,fullname,email,birthdate) VALUES (?,?,?,?)";
+      await database.execute(query, [document, fullname, email, birthdate]);
 
       return true;
     } catch (error) {
@@ -49,12 +49,12 @@ const ClientModel = {
       return false;
     }
   },
-  async update(id, fullname, email, birthdate) {
+  async update(document, fullname, email, birthdate) {
     try {
       const database = await databaseConnection();
 
-      const query = "UPDATE clients SET fullname = ?,email = ?,birthdate = ? WHERE id = ?";
-      await database.execute(query, [fullname, email, birthdate, id]);
+      const query = "UPDATE clients SET fullname = ?,email = ?,birthdate = ? WHERE document = ?";
+      await database.execute(query, [fullname, email, birthdate, document]);
 
       return true;
     } catch (error) {
@@ -65,12 +65,12 @@ const ClientModel = {
       return false;
     }
   },
-  async delete(id) {
+  async delete(document) {
     try {
       const database = await databaseConnection();
 
-      const query = "DELETE FROM clients WHERE id = ?";
-      await database.execute(query, [id]);
+      const query = "DELETE FROM clients WHERE document = ?";
+      await database.execute(query, [document]);
 
       return true;
     } catch (error) {

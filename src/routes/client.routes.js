@@ -3,9 +3,9 @@ const { Router } = require('express');
 const router = Router();
 const userController = require('../controllers/client.controller');
 
-router.get('/:id?', userController.find);
+router.get('/:document?', userController.find);
 router.post('/', userController.save);
-router.put('/:id', userController.update);
-router.delete('/:id', userController.remove);
+router.put('/:document', userController.update);
+router.delete('/:document', userController.remove);
 
 module.exports = router;

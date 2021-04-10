@@ -3,11 +3,12 @@ const clientModel = require('../models/client.model');
 
 const ClientController = {
   async find(req, res) {
-    const { id } = req.params;
+    const { document } = req.params;
+    console.log(document);
     let clients;
 
-    if (id) {
-      clients = await clientModel.findById(id);
+    if (document) {
+      clients = await clientModel.findByDocuement(document);
     } else {
       clients = await clientModel.getAll();
     }
@@ -19,9 +20,9 @@ const ClientController = {
     res.status(200).json(clients);
   },
   async save(req, res) {
-    const { fullname, email, birthdate } = req.body;
+    const { document, fullname, email, birthdate } = req.body;
 
-    const saved = await clientModel.save(fullname, email, birthdate);
+    const saved = await clientModel.save(document, fullname, email, birthdate);
 
     if (!saved) return res.status(500).json({
       message: "Can not create client, try again!"
@@ -33,9 +34,9 @@ const ClientController = {
   },
   async update(req, res) {
     const { fullname, email, birthdate } = req.body;
-    const { id } = req.params;
+    const { document } = req.params;
 
-    const updated = await clientModel.update(id, fullname, email, birthdate);
+    const updated = await clientModel.update(document, fullname, email, birthdate);
 
     if (!updated) return res.status(500).json({
       message: "Can not update client, try again!"
@@ -46,9 +47,9 @@ const ClientController = {
     });
   },
   async remove(req, res) {
-    const { id } = req.params;
+    const { document } = req.params;
 
-    const deleted = await clientModel.delete(id);
+    const deleted = await clientModel.delete(document);
 
     if (!deleted) return res.status(500).json({
       message: "Can not delete client, try again!"
