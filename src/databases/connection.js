@@ -9,10 +9,12 @@ module.exports = async function databaseConnection() {
       password,
       database
     });
+    return connection;
   } catch (error) {
     console.log(`
       ❌ Failed database connection 
       ${error}
     `);
+    return null;
   }
 }
