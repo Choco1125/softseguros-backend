@@ -12,7 +12,7 @@ const ClientController = {
       clients = await clientModel.getAll();
     }
 
-    if (!clients) return res.status(404).json({
+    if (!clients[0]) return res.status(404).json({
       message: 'User not found!'
     });
 
