@@ -10,9 +10,8 @@ app.use(morgan('dev'));
 app.use(cors());
 app.use(expess.json());
 
-app.get('/', (req, res) => {
-  res.send("Hello world!");
-});
+const clientRoutes = require('./routes/client.routes');
+app.use('/api/clients', clientRoutes);
 
 app.listen(app.get('port'), () => {
   console.log(`
