@@ -7,7 +7,8 @@ module.exports = async function databaseConnection() {
       host,
       user,
       password,
-      database
+      database,
+      connectionLimit: 100
     });
     return connection;
   } catch (error) {
