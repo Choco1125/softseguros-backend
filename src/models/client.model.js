@@ -7,7 +7,7 @@ const ClientModel = {
 
       const query = "SELECT * FROM clients WHERE document = ?";
       const [rows] = await database.execute(query, [document]);
-
+      database.end();
       return rows;
     } catch (error) {
       console.log(`
@@ -23,6 +23,7 @@ const ClientModel = {
 
       const query = "SELECT * FROM clients";
       const [rows] = await database.query(query);
+      database.end();
 
       return rows;
     } catch (error) {
@@ -39,6 +40,7 @@ const ClientModel = {
 
       const query = "INSERT INTO clients (document,fullname,email,birthdate) VALUES (?,?,?,?)";
       await database.execute(query, [document, fullname, email, birthdate]);
+      database.end();
 
       return true;
     } catch (error) {
@@ -55,6 +57,7 @@ const ClientModel = {
 
       const query = "UPDATE clients SET fullname = ?,email = ?,birthdate = ? WHERE document = ?";
       await database.execute(query, [fullname, email, birthdate, document]);
+      database.end();
 
       return true;
     } catch (error) {
@@ -71,6 +74,7 @@ const ClientModel = {
 
       const query = "DELETE FROM clients WHERE document = ?";
       await database.execute(query, [document]);
+      database.end();
 
       return true;
     } catch (error) {
